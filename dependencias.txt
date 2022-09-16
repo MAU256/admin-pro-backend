@@ -1,9 +1,13 @@
-express
+/*Dependencias-utilizadas*/
+express - {Para el desarrollo y estructuracion de node.js}
 nodemon - {Para quedar a la escucha de cualquier guardado y se compile automaticamente}
 mongoose - {Para relizar la conexion con mongobd}
 dotenv   - {Para leer archivos con variables de entorno .env}
 cors - {Para hacer la configuracion en el servidor para que acepte peticiones en diferentes dominios}
 {se requiere https://cloud.mongodb.com/}
+express-validator - {Para hacer validaciones en campos}
+bcrypt - {Para encriptacion} 
+/*----------------------------------------*/
 Username:mau56
 Password: america123654
 ip:189.203.174.1/32
