@@ -7,6 +7,7 @@ cors - {Para hacer la configuracion en el servidor para que acepte peticiones en
 {se requiere https://cloud.mongodb.com/}
 express-validator - {Para hacer validaciones en campos}
 bcrypt - {Para encriptacion} 
+jsonwebtoken - {Para generar la autenticacion mediante jwt}
 /*----------------------------------------*/
 Username:mau56
 Password: america123654
