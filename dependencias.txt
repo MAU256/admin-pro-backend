@@ -8,7 +8,9 @@ cors - {Para hacer la configuracion en el servidor para que acepte peticiones en
 express-validator - {Para hacer validaciones en campos}
 bcrypt - {Para encriptacion} 
 jsonwebtoken - {Para generar la autenticacion mediante jwt}
+express-fileupload - {Para el manejo de archivos (subir imagenes)}
+uuid - {para generar un UUID}
 /*----------------------------------------*/
-Username:mau56
-Password: america123654
+Username:hospitales_pro
+Password: hospitales123
 ip:189.203.174.1/32

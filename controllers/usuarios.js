@@ -2,14 +2,24 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
-const {generarJWT} = require('../helpers/jwt');
+const { generarJWT } = require('../helpers/jwt');
 
 const getUsuarios = async (req, res) => {
-    const usuarios = await Usuario.find({}, 'nombre email role google');
+    const desde = Number(req.query.desde) || 0;
+
+    const [usuarios, total] = await Promise.all([
+        Usuario
+            .find({}, 'nombre email role google img')
+            .skip(desde)
+            .limit(5),
+        Usuario.count()
+
+    ]);
+
     res.json({
         ok: true,
         usuarios,
-        uid: req.uid
+        total
     });
 
 }
@@ -34,14 +44,10 @@ const crearUsuario = async (req, res = response) => {
 
         //Generar token - JWT
         const token = await generarJWT(usuario.id);
-        
+
         console.log(generarJWT)
         //Guardar usuario
         await usuario.save();
-        
-
-
-
         res.json({
             ok: true,
             usuario,
@@ -102,32 +108,32 @@ const actualizarUsuario = async (req, res = response) => {
 
 const eliminarUsuario = async (req, res = response) => {
 
-try {
-    const uid = req.params.id;
-    const usuarioDB = await Usuario.findById(uid);
-    
+    try {
+        const uid = req.params.id;
+        const usuarioDB = await Usuario.findById(uid);
 
-    if(!usuarioDB){
-        return res.status(404).json({
+
+        if (!usuarioDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: "Error, usuario no encontrado"
+            })
+        }
+        await Usuario.findByIdAndDelete(uid);
+        res.json({
+            ok: true,
+            msg: "Usuario eliminado"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
             ok: false,
-            msg: "Error, usuario no encontrado"
+            error
         })
-    }
-    await Usuario.findByIdAndDelete(uid);
-    res.json({
-        ok: true,
-        msg: "Usuario eliminado"
-    });
-    
-} catch (error) {
-    return res.status(500).json({
-        ok: false,
-        error
-    })
-    
-}
 
-    
+    }
+
+
 
 }
 
