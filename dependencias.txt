@@ -10,6 +10,7 @@ bcrypt - {Para encriptacion}
 jsonwebtoken - {Para generar la autenticacion mediante jwt}
 express-fileupload - {Para el manejo de archivos (subir imagenes)}
 uuid - {para generar un UUID}
+google-auth-library - {Para verificar el token de ID de google en el servidor}
 /*----------------------------------------*/
 Username:hospitales_pro
 Password: hospitales123
