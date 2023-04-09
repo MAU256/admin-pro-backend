@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const { generarJWT } = require('../helpers/jwt');
 
-const getUsuarios = async (req, res) => {
+const getUsuarios = async (req, res = response) => {
     const desde = Number(req.query.desde) || 0;
 
     const [usuarios, total] = await Promise.all([
@@ -63,8 +63,7 @@ const crearUsuario = async (req, res = response) => {
 }
 
 const actualizarUsuario = async (req, res = response) => {
-    const uid = req.params.id;
-    // const {} = req.body;
+    const uid = req.params.id;    
     try {
         const usuarioDB = await Usuario.findById(uid);
         if (!usuarioDB) {
@@ -84,7 +83,17 @@ const actualizarUsuario = async (req, res = response) => {
                 })
             }
         }
-        campos.email = email;
+
+        if(!usuarioDB.google){
+            campos.email = email;
+        }else if(usuarioDB.email !== email){
+            return res.status(400).json({
+                ok: false,
+                msg: 'Usuario de google no puede actualizar el email'
+            });
+
+        }
+        
 
         //Actualizar datos
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
