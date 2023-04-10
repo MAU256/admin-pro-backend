@@ -28,7 +28,7 @@ app.use('/api/todo', require('./routes/busquedas'));
 app.use('/api/upload', require('./routes/uploads'))
 
 app.get('*', (req, res) => {
-    res.sendFile(path(__dirname, 'public/index.html'));
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 
