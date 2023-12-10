@@ -1,54 +1,45 @@
 const { Schema, model } = require('mongoose');
 
-const MedicoSchema = Schema({
-    nombre: {
+const CitaSchema = Schema({
+    titulo: {
         type: String,
         required: true
     },    
-    apellido: {
-        type: String,
+    fechaEmision: {
+        type: Date,
         required: true
     },    
-    especialidad: {
-        type: String,
+    fechaCita: {
+        type: Date,
         required: true
     },    
-    cedula: {
+    motivo: {
         type: String,
         required: true
-    },    
-    telefono: {
-        type: Number,
-        required: true
-    },    
-    email: {
-        type: String,
-        required: true
-    }
-    ,    
-    // role: {
-    //     type: String,
-    //     required: true
-    // },
-    
-    img: {
-        type: String
     },
-    usuario: {
+    tipoConsulta: {
+        type: String,
+        required: true
+    },    
+    estado: {
+        type: String,
+        required: true
+    },
+    medico: {
         required: true,
         type: Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'Medico'
     },
-    hospital: {
+    paciente: {
         required: true,
         type: Schema.Types.ObjectId,
-        ref: 'Hospital'
+        ref: 'Paciente'
     }
 });
 
-MedicoSchema.method('toJSON', function () {
+CitaSchema.method('toJSON', function () {
     const { __v, ...object } = this.toObject();
     return object;
 });
 
-module.exports = model('Medico', MedicoSchema);
+module.exports = model('Cita', CitaSchema);

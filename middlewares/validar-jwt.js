@@ -35,7 +35,6 @@ const validarAdminRole = async(req, res, next) => {
                 msg: 'Usuario no existe'
             });
         }
-
         if(usuarioDB.role !== 'ADMIN_ROLE'){
             return res.status(403).json({
                 ok: false,

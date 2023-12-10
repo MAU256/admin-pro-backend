@@ -2,6 +2,7 @@ const Usuario = require('../models/usuario');
 const Hospital = require('../models/hospital');
 const Medico = require('../models/medicos');
 const fs = require('fs');
+const Paciente = require('../models/pacientes');
 
 
 
@@ -11,15 +12,15 @@ const actualizarImagen = async (tipo, id, path, nombreArchivo) => {
             'usuarios': await Usuario.findById(id),
             'medicos': await Medico.findById(id),
             'hospitales': await Hospital.findById(id),
+            'pacientes': await Paciente.findById(id),
         }
         const resultadoColeccion = mapTipo[tipo];
-
-        if (resultadoColeccion.length == 0) {
+        if (!resultadoColeccion) {
+            console.log("No se pudo guardar la imagen debido a que no encontro un tipo valido.")
             return false;
         }
 
-        const pathViejo = `./uploads/${tipo}/${resultadoColeccion.img}`        
-        console.log('path viejo', pathViejo)
+        const pathViejo = `./uploads/${tipo}/${resultadoColeccion.img}`                
         if (fs.existsSync(pathViejo)) {
             //borrar la imagen si existe
             fs.unlinkSync(pathViejo)
@@ -32,10 +33,7 @@ const actualizarImagen = async (tipo, id, path, nombreArchivo) => {
     } catch (error) {
         return false;
     }
-
-
-
-
+    
 }
 
 

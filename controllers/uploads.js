@@ -7,12 +7,12 @@ const fs = require('fs')
 const fileUpload = (req, res = response) => {
     const tipo = req.params.tipo;
     const id = req.params.id;
-    const tiposValidos = ['hospitales', 'medicos', 'usuarios'];
+    const tiposValidos = ['hospitales', 'medicos', 'usuarios', 'pacientes'];
 
     if (!tiposValidos.includes(tipo)) {
         return res.status(404).json({
             ok: false,
-            msg: "El tipo es incorrecto, solo se permiten hospitales, medicos o usuarios"
+            msg: "El tipo es incorrecto, solo se permiten pacientes, hospitales, medicos o usuarios"
         });
     }
 
